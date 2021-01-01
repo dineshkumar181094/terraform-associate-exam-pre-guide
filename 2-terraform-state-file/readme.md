@@ -8,7 +8,8 @@ in current working directory it is like a database which tells terraform which r
 lame example -> if you have crated instance how do terraform comes to know which resource it is managin because of state file.
 
 example of statefile
-```{
+```sh
+{
       "mode": "managed",
       "type": "aws_s3_bucket",
       "name": "s3bucket",
@@ -59,10 +60,12 @@ The above file has all the information about terraform.
 
 now that state is being compared with desired state and plan is genrated accordingly.
 Terraform will always push towards desired state.
+
 ```command - terraform refresh ```
 
 ## Terraform show 
 display the content of state file
+
 ``` command - terrafrom show ```
 
 Terraform fetches the current state by doing terraform refresh and then displaay the diff between current state and desried state.

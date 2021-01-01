@@ -10,7 +10,7 @@ It is highly recommended to specify the version of provider you want in terrafor
 ** location of provider /.terraform/plugins/<ostype>/<provider_binary> **
 
 
-```
+```sh
 provider "aws" {
   region = "ap-south-1"
   version = "2.7"
