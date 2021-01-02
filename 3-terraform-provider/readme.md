@@ -32,6 +32,11 @@ provider "aws" {
   - when existing provider doesn't solve the usecase or you want build some custom
 
 Note -> 3rd party plugin won't be downloaded directly they need to be put in specific directory.
-
+**terraform v0.13 is can download these 3rd party plugin directly without manual installation.**
+Terraform v
 - ~/.terraform/plugins
+
+use command 
+terraform init -upgrade
+to move to latest version of provider
 

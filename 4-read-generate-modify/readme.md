@@ -135,6 +135,7 @@ locals {
 # now use local.name_prefix everywhere
 }
 ```
+**Note-> local cannot refer to itself or to a variable that refers (directly or indirectly) back to it**
 
 ## Function in terraform
 The terraform laungage includes a number of built-in fuction that can be used to transform and combine values.
@@ -174,11 +175,16 @@ can be set to
 - WARN
 - ERROR
 
+This will cause detailed logs to appear on **stderr**.
+**TRACE is the most verbose and it is the default if TF_LOG is set to something other than a log level name**
+
 
 ## Terraform fmt
 formats the file in clear way
 
-terraform fmt 
+terraform fmt
+
+**Format your configuration. Terraform will return the names of the files it formatted. If your configuration file is already formatted correctly, Terraform won't return any file names.**
 
 ## Terraform validate command
 - Terraform validate primary check wheatres a configuration systactically correct or not, 
@@ -247,7 +253,19 @@ terraform {
   aws = "~> 2.0"
 }
 }
-Note -> from 12 version of terraform it is required to provider's version in terraform block
+#Note -> from 12 version of terraform it is required to provider's version in terraform block
+```
+Note-> terraform 0.13 has changed they styel of required_providers syntax
+```sh
+terraform {
+  required_providers {
+    mycloud = {
+      source  = "mycorp/mycloud"
+      version = "~> 1.0"
+    }
+  }
+}
+# now you need to mention provider source also as terraform .13 can install 3rd party module as well.
 ```
 
 ## Delaing with larger infrastructure.
@@ -260,5 +278,30 @@ you can use
 while planing
 or you can target a particular module
 ```-target aws_instance.main```
+
+## Dependecy of resoruces
+implicit depedncies
+-> when terraform perhandly know the depedendices when one resource is depended on other.
+exmaple
+```sh
+resources "aws_ip" "my_eip" {
+  vpc = true
+}
+
+resources "aws_instance" "my_ec2" {
+  intance_type = "t2.micro"
+  public_ip = aws_ip.my_eip.private_ip
+}
+
+# in the above it is clearly understood that eip needs to crated first before instance
+explicit way of doin it
+resource "aws_s3" "abc" {
+
+}
+resources "aws_instance" "myec2" {
+  instance_type = "xyz"
+  depends_on = aws_s3.abc
+}
+```
 ## Reference
 https://www.terraform.io/docs/configuration/variables.html

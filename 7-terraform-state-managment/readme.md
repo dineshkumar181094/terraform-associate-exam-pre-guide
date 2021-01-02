@@ -22,11 +22,23 @@ teraform {
 }
 
 ```
+partial configuration
+```sh
+terraform {
+  backend "s3" {
+
+  }
+}
+```
+while init pass rest parameter
 
 Types of backend
 - standard backend -> state store and locking
 - Enhanced backend -> All feature of standards + remote managment
 
+**NOTE ->When using remote state, state is only ever held in memory when used by Terraform. It may be encrypted at rest, but this depends on the specific remote state backend.**
+Sate will never come up as a file in local machine, it will be only kept in ram for operation.
+This prevention is strictly applied post terraform v0.9
 ## Statefile locking
 Whenever you are performing wirte ops, terraform would lock the statefile.
 This is very important otherwise during your ongoing terraform apply operation, if some others allso tries the same, it would corrupt your statefile
@@ -34,6 +46,7 @@ This is very important otherwise during your ongoing terraform apply operation, 
 Note -> by default locking feature is not present in s3
 
 **we can use dynamodb_table attribute to performe locking feature**
+**To use DynamoDB for locking with Terraform, you must create a DynamoDB table with a primary key called ``LockID`` with this exact spelling and capitalization**
 
 
 ## Terraform state managment
@@ -45,6 +58,8 @@ list -> list the resorces in statefile
   terraform list 
 mv -> move item in terrform state (renaming existin resrouces)
  terraform mv aws_instance.ec2 aws_instance.myec2
+ #This command can also move to a destination address in a completely different state file
+ 
 pull -> manually download and output state
   terraform pull
 push -> pushes the state manually
@@ -67,5 +82,7 @@ Note -> it will only generate statefile not the desired state you need to write 
 example we need to import aws instance then
 ```sh
 terraform import aws_instance.myec2 <instance-id>
+
 ```
+**NOTE -> command currently can only import one resource at a time**
 will get instance in state file

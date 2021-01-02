@@ -17,6 +17,14 @@ Initialize a new or existing Terraform working directory by creating
   If no arguments are given, the configuration in this working directory
   is initialized.
 
+NOTE -> 
+- terraform cloud always encrypts the file at rest and protect it in transit with tls and also maintains the history of state changes.
+
+## Features of terraform cloud
+- single sign-on
+- audting
+- clustering
+- private data center networking
 
 ## Terraform plan
 Generate the plan

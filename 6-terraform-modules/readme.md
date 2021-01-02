@@ -99,3 +99,25 @@ terraform workspace show # current workspace
 a new directory will be created terraform.tfstate.d\
 inside that many workspace will be present
 all states are mainted differently
+
+## Public vs Private module registery
+Important ->
+
+### Private module registry
+
+Private registry modules have source strings of the form <HOSTNAME>/<NAMESPACE>/<NAME>/<PROVIDER>. This is the same format as the public registry, but with an added hostname prefix.
+This is the same format as the public registry, but with an added hostname prefix.
+
+private registory can be hosted on terraform.io for an example
+```sh
+module "vpc" {
+  source = "app.terraform.io/example_corp/vpc/aws"
+  version = "0.9.3"
+}
+```
+
+### Public module registry
+
+Module Name convetion terraform-<PROVIDER>-<NAME>.
+terraform-aws-ec2-instance
+tag symentics x.y.z tags for releases

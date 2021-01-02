@@ -21,6 +21,10 @@
 Sentinal are the policy checks which can assoicated with a terraform run.
 It is embeded policy as code framework integrated with Hashicorp Enterprise products.
 
+Important -> 
+**Format your configuration. Terraform will return the names of the files it formatted. If your configuration file is already formatted correctly, Terraform won't return any file names.**
+plan -> sentinal poilcy envaluation -> apply
+
 It is a paid feature.
 example we want instance to have tags, then we can attach to a run.
 
